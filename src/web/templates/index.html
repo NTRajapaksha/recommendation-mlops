@@ -3,42 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NetflixRec</title>
+    <title>MLOps Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <div class="logo">NETFLIX<span style="color:white; font-weight:300;">REC</span></div>
-        <div class="user-profile">
-            User ID: <input type="number" id="userIdInput" value="1" min="1" max="600">
-            <button onclick="refreshPredictions()">Refresh For User</button>
+    <div class="container">
+        <header>
+            <div class="badge">MLOPS V1</div>
+            <h1>Recommendation Engine</h1>
+            <p>Select a user and a movie to predict compatibility.</p>
+        </header>
+
+        <div class="control-panel">
+            <div class="input-group">
+                <label>User ID</label>
+                <input type="number" id="userId" value="1" min="1" max="600">
+            </div>
+
+            <div class="input-group">
+                <label>Select Movie</label>
+                <select id="movieSelect">
+                    {% for movie in movies %}
+                    <option value="{{ movie.movieId }}" data-genre="{{ movie.genre_code }}">
+                        {{ movie.title }} ({{ movie.genres.split('|')[0] }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button onclick="predict()" class="analyze-btn">Run Prediction</button>
         </div>
-    </header>
 
-    <div class="hero">
-        <h1>Top Picks for You</h1>
-        <p>Powered by XGBoost & MLOps</p>
-    </div>
-
-    <div class="movie-grid">
-        {% for movie in movies %}
-        <div class="movie-card" 
-             data-movie-id="{{ movie.movieId }}" 
-             data-genre-code="{{ movie.genre_code }}">
-            
-            <div class="poster-placeholder">
-                🎬
+        <div id="resultCard" class="result-card hidden">
+            <div class="result-header">
+                <span id="recStatus">RECOMMENDED</span>
+                <span id="recScore">98% Match</span>
             </div>
             
-            <div class="movie-info">
-                <h3>{{ movie.title }}</h3>
-                <p class="genres">{{ movie.genres.replace('|', ', ') }}</p>
-                
-                <div class="match-score">Loading...</div>
+            <div class="result-body">
+                <div class="metric">
+                    <span class="label">Predicted Rating</span>
+                    <span class="value" id="ratingValue">4.8</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Movie ID</span>
+                    <span class="value" id="movieIdDisplay">10</span>
+                </div>
+                <div class="metric">
+                    <span class="label">User ID</span>
+                    <span class="value" id="userIdDisplay">1</span>
+                </div>
             </div>
         </div>
-        {% endfor %}
+
     </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>

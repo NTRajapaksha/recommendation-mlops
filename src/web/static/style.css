@@ -1,53 +1,107 @@
 body {
-    background-color: #141414;
-    color: white;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
-header {
+.container {
+    width: 400px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.badge {
+    background: #333;
+    color: #aaa;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+h1 { margin: 0 0 0.5rem 0; font-size: 1.5rem; }
+p { color: #666; margin-bottom: 2rem; font-size: 0.9rem; }
+
+.control-panel {
+    background: #111;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #222;
+}
+
+.input-group { text-align: left; margin-bottom: 1rem; }
+label { display: block; font-size: 0.8rem; color: #888; margin-bottom: 0.5rem; }
+
+input, select {
+    width: 100%;
+    background: #222;
+    border: 1px solid #333;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    box-sizing: border-box; /* Fixes padding issues */
+}
+
+.analyze-btn {
+    width: 100%;
+    background: white;
+    color: black;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.2s;
+}
+
+.analyze-btn:hover { background: #ddd; }
+
+/* RESULT CARD */
+.result-card {
+    margin-top: 2rem;
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease;
+}
+
+.hidden { display: none; }
+
+.result-header {
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
-    padding: 20px 40px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0));
-}
-
-.logo { color: #E50914; font-size: 30px; font-weight: bold; }
-
-.hero { padding: 40px; text-align: left; }
-
-.movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px 40px;
-}
-
-.movie-card {
-    background-color: #1f1f1f;
-    border-radius: 4px;
-    transition: transform 0.3s;
-    overflow: hidden;
-}
-
-.movie-card:hover { transform: scale(1.05); z-index: 10; cursor: pointer; }
-
-.poster-placeholder {
-    height: 150px;
-    background-color: #333;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 40px;
+    font-weight: bold;
 }
 
-.movie-info { padding: 10px; }
-h3 { font-size: 14px; margin: 0 0 5px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.genres { font-size: 10px; color: #aaa; }
+#recStatus {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
 
-.match-score {
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 14px;
+.result-body {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    border-top: 1px solid #333;
+}
+
+.metric { text-align: center; }
+.metric .label { display: block; font-size: 0.7rem; color: #666; margin-bottom: 4px;}
+.metric .value { font-size: 1.1rem; font-weight: 600; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
