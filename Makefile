@@ -4,8 +4,9 @@ install:
 train:
 	python src/train.py
 
-run-api:
-	python src/api/main.py
+run-full-stack:
+	uvicorn src.api.main:app --host 0.0.0.0 --port 8000 & \
+	python src/web/app.py
 
 clean:
 	rm -rf __pycache__

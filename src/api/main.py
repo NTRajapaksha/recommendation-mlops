@@ -1,10 +1,19 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware #
 import mlflow.xgboost
 import pandas as pd
 import uvicorn
 import os
 
 app = FastAPI(title="Netflix-Like Recommender API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (for development)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Load model from local MLflow run (Simulating Production Registry)
 # In real MLOps, you fetch from S3/Model Registry. 

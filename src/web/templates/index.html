@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetflixRec</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <div class="logo">NETFLIX<span style="color:white; font-weight:300;">REC</span></div>
+        <div class="user-profile">
+            User ID: <input type="number" id="userIdInput" value="1" min="1" max="600">
+            <button onclick="refreshPredictions()">Refresh For User</button>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Top Picks for You</h1>
+        <p>Powered by XGBoost & MLOps</p>
+    </div>
+
+    <div class="movie-grid">
+        {% for movie in movies %}
+        <div class="movie-card" 
+             data-movie-id="{{ movie.movieId }}" 
+             data-genre-code="{{ movie.genre_code }}">
+            
+            <div class="poster-placeholder">
+                🎬
+            </div>
+            
+            <div class="movie-info">
+                <h3>{{ movie.title }}</h3>
+                <p class="genres">{{ movie.genres.replace('|', ', ') }}</p>
+                
+                <div class="match-score">Loading...</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
