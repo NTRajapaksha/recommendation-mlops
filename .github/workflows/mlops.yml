@@ -1,0 +1,37 @@
+name: MLOps Automation Pipeline
+
+# TRIGGER: When do you want this robot to run?
+# Here: Every time you push code to the 'main' branch.
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# JOBS: The tasks the robot performs.
+jobs:
+  build-and-test:
+    # The OS the robot runs on (GitHub provides this)
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Check out your code onto the robot's machine
+    - uses: actions/checkout@v3
+
+    # 2. Install Python 3.9
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.9"
+
+    # 3. Install your dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    # 4. Run the Test we created in Step 1
+    - name: Run MLOps Pipeline Tests
+      run: |
+        pytest tests/test_pipeline.py
